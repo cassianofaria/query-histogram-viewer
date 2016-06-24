@@ -13,18 +13,8 @@
 		<div class="jumbotron">
 			<h1>Query Histogram Viewer</h1>
 		</div>
-		<div class="row">
-			<div class="col-sm-12">
-				<div class="panel panel-primary">
-					<div class="panel-heading">Chart</div>
-					<div class="panel-body">
-						<canvas id="bar" class="chart chart-bar" height="100px" chart-data="data"
-							chart-labels="labels" chart-series="series"></canvas>
-					</div>
-				</div>
-			</div>
-		</div>
-		<div class="row">
+		
+		<div class="row" ng-hide="is_detail">
 			<div class="col-sm-12">
 				<div class="panel panel-primary">
 					<div class="panel-heading">Configuration</div>
@@ -35,6 +25,51 @@
 				</div>
 			</div>
 		</div>
+		
+		<div class="row" ng-hide="is_detail">
+			<div class="col-sm-12">
+				<div class="panel panel-primary">
+					<div class="panel-heading">Chart</div>
+					<div class="panel-body">
+						<canvas id="bar" class="chart chart-bar" height="100px" chart-data="data"
+							chart-labels="labels" chart-series="series" chart-click="details"></canvas>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="row" ng-show="is_detail">
+			<div class="col-sm-12">
+				<div class="panel panel-primary">
+					<div class="panel-heading">Configuration</div>
+					<div class="panel-body">
+						<button class="btn btn-success" ng-click="is_detail = false;">Bach to Histogram</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<div class="row" ng-show="is_detail">
+			<div class="col-sm-12">
+				<table class="table table-bordered">
+  					<thead>
+  						<tr>
+	  						<th>Duration</th>
+	  						<th>SQL</th>
+  						</tr>
+  					</thead>
+  					<tbody>
+  						<tr ng-repeat="detail in details">
+  							<td>{{detail.duration}}</td>
+  							<td><div class="well">{{detail.query}}</div></td>
+  						</tr>
+  					</tbody>
+				</table>
+			</div>
+		</div>
+		
+		
+		
 	</div>
 
 	<script type="text/javascript" src="javascripts/angular.min.js"></script>

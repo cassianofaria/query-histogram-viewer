@@ -1,9 +1,12 @@
 package controllers;
 
+import java.util.List;
+
 import models.Histogram;
+import models.HistogramDetail;
 import play.libs.Json;
-import play.mvc.*;
-import views.html.*;
+import play.mvc.Controller;
+import play.mvc.Result;
 
 /**
  * This controller contains an action to handle HTTP requests
@@ -24,6 +27,14 @@ public class HomeController extends Controller {
     public Result histogram() {
     	Histogram histogram = Histogram.get();
 		return ok(Json.toJson(histogram));
+    }
+    
+    public Result detail() {
+    	int from = Integer.parseInt(request().getQueryString("from"));
+    	int to = Integer.parseInt(request().getQueryString("to"));
+    	
+    	List<HistogramDetail> details = HistogramDetail.getDetail(from, to);
+		return ok(Json.toJson(details));
     }
     
     public Result reset() {
